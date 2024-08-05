@@ -1,0 +1,169 @@
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+}
+
+.header {
+  background-color: #1c0c72;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.menu {
+  color: white;
+  background-color: #808080;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.menu a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.menu a:hover {
+  background-color: lightgray;
+}
+
+.row {
+  display: flex;
+}
+
+.left {
+  background-color: lightgray;
+  width: 20%;
+  text-align: center;
+  padding: 200px 0;
+}
+
+.content {
+  background-color: rgb(244, 240, 240);
+  width: 80%;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>FIXGEAR INDONESIA</h1>
+</div>
+
+<div class="menu">
+  <a onclick="showSection('Home')">Home</a>
+  <a onclick="showSection('Beli')">Beli</a>
+  <a onclick="showSection('Transaksi')">Transaksi</a>
+  <a onclick="showSection('Tentang')">Tentang Kami</a>
+</div>
+
+<div class="row">
+  <div class="left">
+    <h2>Selamat Datang di Toko Sepeda FIXGEAR Kami menjual Frameset untuk Sepeda Fixed</h2>
+  </div>
+
+  <section id="Home" class="content">
+    <h2>Selamat Datang di Toko Sepeda FixGEAR</h2>
+    <p>Kami memiliki beragam pilihan untuk anda</p>
+    <img src="hitam.jpeg" alt="frame1" width="250px" height="200px" style="margin: 10px;">
+    <img src="orange.jpg" alt="frame2" width="250px" height="200px" style="margin: 10px;">
+    <img src="hitam mix.jpg" alt="frame3" width="250px" height="200px" style="margin: 10px;">
+    <img src="silver.jpeg" alt="frame4" width="250px" height="200px" style="margin: 10px;">
+    <img src="rose.jpeg" alt="frame5" width="250px" height="200px" style="margin: 10px;">
+    <marquee behavior="direction">TERIMAKASIH TELAH MENGUNJUNGI STORE KAMI</marquee>
+  </section>
+
+  <section id="Beli" class="content hidden">
+    <h2>Input Pembelian</h2>
+    <form id="transaksiForm">
+        <label for="nama">Nama:</label><br>
+        <input type="text" id="nama" name="nama" required><br><br>
+        <label for="alamat">Alamat:</label><br>
+        <input type="text" id="alamat" name="alamat" required><br><br>
+        <label for="tipe">Tipe frameset:</label><br>
+        <select id="tipeSelect" name="tipe" required>
+            <option value="frame Hitam">frame Hitam</option>
+            <option value="frame Orange">frame Orange</option>
+            <option value="frame Hitam Mix">frame Hitam Mix</option>
+            <option value="frame Silver">frame Silver</option>
+            <option value="frame Rose">frame Rose</option>
+        </select><br><br>
+        <label for="jumlah">Jumlah:</label><br>
+        <input type="number" id="jumlah" name="jumlah" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+  </section>
+
+  <section id="Transaksi" class="content hidden">
+    <h2>Transaksi Pembelian</h2>
+    <div id="transaksiList"></div>
+  </section>
+
+  <section id="Tentang" class="content hidden">
+    <h2>Tentang Kami</h2>
+    <p align="center" id="about"><font color="#000000"><b>CONTACT</b></font></p>
+    <p align="center"><font color="#000000">KONTAK: 0812-1832-8948 <br> EMAIL : FIXGEARIND@GMAIL.COM</font></p>   
+    <p>Nama: NAJWAN RADITYA L.</p>
+    <p>Kelas: IS-3</p>
+    <img src="jwan.jpg" alt="jwan" width="200px" height="200px">
+  </section>
+</div>
+<script>
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.content');
+  sections.forEach(section => {
+    if (section.id === sectionId) {
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+}
+
+const form = document.getElementById('transaksiForm');
+const transaksiList = document.getElementById('transaksiList');
+
+const hargaFrameset = {
+  'frame Hitam': 5000000,
+  'frame Orange': 4500000,
+  'frame Hitam Mix': 5500000,
+  'frame Silver': 4800000,
+  'frame Rose': 6000000
+};
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const nama = document.getElementById('nama').value;
+  const alamat = document.getElementById('alamat').value;
+  const tipe = document.getElementById('tipeSelect').value;
+  const jumlah = document.getElementById('jumlah').value;
+  
+  const harga = hargaFrameset[tipe];
+  const totalHarga = harga * jumlah;
+  
+  const transaksiItem = document.createElement('div');
+  transaksiItem.innerHTML = `<p>Nama: ${nama}</p>
+                             <p>Alamat: ${alamat}</p>
+                             <p>Tipe: ${tipe}</p>
+                             <p>Jumlah: ${jumlah}</p>
+                             <p>Harga per unit: Rp${harga}</p>
+                             <p>Total Harga: Rp${totalHarga}</p>
+                             <hr>`;
+  
+  transaksiList.appendChild(transaksiItem);
+  
+  form.reset();
+});
+</script>
+
+</body>
+</html>
